@@ -14,13 +14,26 @@
 html, body {
   height: 100%;
   margin: 0;
-  background: radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,0.15), transparent 60%),
-              radial-gradient(900px 700px at -10% 20%, rgba(90,200,250,0.12), transparent 60%),
-              var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Source Sans Pro', Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Seamless, fixed gradient background that stays smooth on scroll (mobile-safe) */
+body { background: transparent; }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(1200px 800px at 80% -10%, rgba(167,139,250,0.15), transparent 60%),
+              radial-gradient(900px 700px at -10% 20%, rgba(90,200,250,0.12), transparent 60%);
+  background-repeat: no-repeat;
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .container {
@@ -31,6 +44,25 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 36px; /* overall vertical rhythm */
+}
+
+/* Footer (fixed at bottom-left) */
+.site-footer {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 10;
+  color: #9aa7b3;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.footer-inner {
+  padding: 0;
+  border: 0;
+  max-width: none;
+  width: auto;
+  text-align: left;
 }
 
 /* Header: avatar + name + links */
@@ -78,9 +110,9 @@ html, body {
 .icon-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px; /* icon + text spacing */
-  height: 40px;
-  padding: 0 12px 0 10px;
+  gap: 8px; /* icon + text spacing */
+  height: 34px;
+  padding: 0 10px 0 8px;
   border-radius: 12px;
   background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.0));
   border: 1px solid var(--border);
@@ -99,13 +131,17 @@ html, body {
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   opacity: 0.95;
-  flex: 0 0 20px;
+  flex: 0 0 18px;
 }
 
+/* Normalize vertical centering for LinkedIn glyph (its path baseline sits slightly low) */
+.icon-link[aria-label="LinkedIn"] .icon { transform: translateY(-1px); }
+
 .icon-label {
+  font-size: 0.95em;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text);
@@ -220,14 +256,13 @@ html, body {
 
 .cursor {
   display: inline-block;
-  width: 9px;
+  width: 0.6ch;
   margin-left: 2px;
   border-radius: 1px;
-  background: linear-gradient(180deg, #5cff5c, #b8ffb8);
+  background: currentColor; /* match terminal text color */
   animation: blink 1.1s step-end infinite;
   height: 1.05em;
   vertical-align: text-bottom;
-  box-shadow: 0 0 10px rgba(120,255,120,0.35);
 }
 
 @keyframes blink {
@@ -237,6 +272,11 @@ html, body {
 
 /* Responsive tweaks */
 @media (max-width: 640px) {
+  /* Tweak background glow sizes/positions for small screens */
+  body::before {
+    background: radial-gradient(700px 500px at 70% -20%, rgba(167,139,250,0.16), transparent 60%),
+                radial-gradient(600px 450px at -20% 30%, rgba(90,200,250,0.12), transparent 60%);
+  }
   .header {
     grid-template-columns: 1fr;
     text-align: center;
