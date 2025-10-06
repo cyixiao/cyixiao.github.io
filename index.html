@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yixiao Chen — Personal Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="container" aria-live="polite">
+    <header class="header">
+      <img class="avatar" src="./avatar.jpg" alt="Portrait of Yixiao Chen" />
+      <div class="identity">
+        <div class="name">Yixiao Chen</div>
+        <div class="links" aria-label="Social and contact links">
+          <a class="icon-link" href="https://github.com/cyixiao" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.48 0-.24-.01-.86-.01-1.68-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.13-1.52-1.13-1.52-.92-.64.07-.63.07-.63 1.02.07 1.56 1.07 1.56 1.07.9 1.58 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.8c.85 0 1.71.12 2.51.35 1.9-1.32 2.74-1.05 2.74-1.05.56 1.41.21 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.81-4.58 5.06.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .26.18.58.69.48A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/>
+            </svg>
+            <span class="icon-label">GitHub</span>
+          </a>
+          <a class="icon-link" href="https://scholar.google.com/citations?user=qrRtqo0AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" title="Google Scholar">
+            <!-- Graduation cap icon to represent Google Scholar -->
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 3 2 8l10 5 8-4.1V15h2V8L12 3Zm-5.5 9.09V16c0 2.21 3.13 4 5.5 4s5.5-1.79 5.5-4v-3.91L12 14l-5.5-1.91Z"/>
+            </svg>
+            <span class="icon-label">Scholar</span>
+          </a>
+          <a class="icon-link" href="mailto:cyixiao19@gmail.com" aria-label="Email" title="Email">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/>
+            </svg>
+            <span class="icon-label">Email</span>
+          </a>
+          <a class="icon-link" href="https://www.linkedin.com/in/yixiao-chen-94853221a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <!-- LinkedIn official 'in' glyph -->
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM.5 8.5h4V24h-4V8.5Zm7.5 0h3.84v2.11h.05c.53-1 1.84-2.11 3.78-2.11 4.04 0 4.79 2.66 4.79 6.12V24h-4v-6.77c0-1.62-.03-3.7-2.26-3.7-2.26 0-2.61 1.77-2.61 3.59V24h-4V8.5Z" transform="translate(2)"/>
+            </svg>
+            <span class="icon-label">LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav" role="tablist" aria-label="Sections">
+      <button class="nav-btn active" data-section="about" role="tab" aria-selected="true">About Me</button>
+      <button class="nav-btn" data-section="education" role="tab" aria-selected="false">Education</button>
+      <button class="nav-btn" data-section="publications" role="tab" aria-selected="false">Publications</button>
+    </nav>
+
+    <section class="panel" aria-label="AI-style response panel">
+      <div class="term-header">
+        <div class="term-dots" aria-hidden="true">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="term-title">Terminal — cyixiao@site </div>
+        <div style="width:24px"></div>
+      </div>
+      <div id="content" class="content">
+        <span class="muted">Select a section to generate content…</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const contentEl = document.getElementById('content');
+    const navButtons = Array.from(document.querySelectorAll('.nav-btn'));
+
+    const sections = {
+      about: `I'm Yixiao Chen.\n\nI am currently a Master's student at Harvard University, and hold a B.S. in Computer Science and Statistics from the UNC at Chapel Hill.\n\nMy research interests lie at the intersection of artificial intelligence and scientific discovery, with a particular focus on large language models (LLMs) and AI for Science. I am passionate about exploring how intelligent systems can advance our understanding of complex data and enable new forms of scientific reasoning.\n\nBeyond academics, I enjoy playing piano, exploring mixology, competitive FPS gaming, and following Formula 1 racing.`,
+      education: `Education\n\nHarvard University — M.S. in Health Data Science (2025–Present)\n\nUniversity of North Carolina at Chapel Hill — B.S. in Computer Science & Statistics (2021–2025)`,
+      publications: `[0] Wenhao Zheng*, Yixiao Chen*, Weitong Zhang, Souvik Kundu, Yun Li, Zhengzhong Liu, Eric P. Xing, Hongyi Wang, Huaxiu Yao, "CITER: Collaborative Inference for Efficient Large Language Model Decoding with Token-Level Routing," Conference on Language Modeling (COLM), 2025.\n\n[1] Yanlong Zhao, Yixiao Chen, Jiawen Du, Quan Sun, Ren Wang, Can Chen, "DREAM-GNN: Dual-route embedding-aware graph neural networks for drug repositioning," Briefings in Bioinformatics, 2025.\n\n[2] Yanlong Zhao*, Yixiao Chen*, Yi Yu, Xiang Liu, Jiawen Du, Jun Wen, Chen Liao, Quan Sun, Ren Wang, Can Chen, "MuSHIN: A multi-way SMILES-based hypergraph inference network for metabolic model reconstruction," Nature Communications, Under Review.\n\n[3] Wenhao Zheng, Weitong Zhang, Yixiao Chen, Zhengzhong Liu, Eric P. Xing, Hongyi Wang, Yun Li, Huaxiu Yao, "CloudAssist: A Cost-Aware Edge-Cloud Collaborative Inference Framework," International Conference on Learning Representations (ICLR), 2026, Under Review.`
+    };
+
+    let isTyping = false;
+    let currentTimeout = null;
+
+    function setActive(button) {
+      navButtons.forEach(b => {
+        const active = b === button;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', String(active));
+      });
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => currentTimeout = setTimeout(resolve, ms));
+    }
+
+    async function typeText(text) {
+      isTyping = true;
+      contentEl.textContent = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      contentEl.appendChild(cursor);
+
+      const tokens = Array.from(text);
+      let buffer = '';
+      for (const ch of tokens) {
+        buffer += ch;
+        contentEl.firstChild?.remove?.(); // remove cursor before update
+        contentEl.textContent = buffer;
+        contentEl.appendChild(cursor);
+        const delay = ch === '\n' ? 8 : 4 + Math.random() * 10; // even faster typing
+        // small pause after sentence
+        await sleep(delay);
+      }
+
+      // keep cursor for a moment for realism
+      await sleep(200);
+      cursor.remove();
+      isTyping = false;
+    }
+
+    async function showSection(key) {
+      if (isTyping) {
+        clearTimeout(currentTimeout);
+        isTyping = false;
+      }
+      contentEl.classList.add('fade-out');
+      await sleep(180);
+      contentEl.classList.remove('fade-out');
+      const text = sections[key] || '';
+      await typeText(text);
+    }
+
+    // Click handlers
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (btn.classList.contains('active') && !isTyping) return;
+        setActive(btn);
+        await showSection(btn.dataset.section);
+      });
+    });
+
+    // Auto-generate first section on load
+    window.addEventListener('load', () => {
+      showSection('about');
+    });
+  </script>
+</body>
+</html>
+
+
