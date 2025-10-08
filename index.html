@@ -67,7 +67,12 @@
   </main>
 
   <footer class="site-footer" aria-label="Footer">
-    <div class="footer-inner">© 2025. cyixiao</div>
+    <div class="footer-content">
+      <div class="copyright">© 2025. cyixiao</div>
+      <div class="visitor-counter">
+        <span id="visitCount">0</span> total Pageviews
+      </div>
+    </div>
   </footer>
 
   <script>
@@ -143,8 +148,21 @@
     window.addEventListener('load', () => {
       showSection('about');
     });
+
+    // Visitor counter
+    function updateVisitCount() {
+      const countEl = document.getElementById('visitCount');
+      if (!countEl) return;
+      
+      let count = parseInt(localStorage.getItem('siteVisitCount') || '0');
+      count++;
+      localStorage.setItem('siteVisitCount', count.toString());
+      countEl.textContent = count.toLocaleString();
+    }
+
+    // Update counter on page load
+    updateVisitCount();
   </script>
 </body>
 </html>
-
 
