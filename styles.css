@@ -75,6 +75,21 @@ body::before {
 .visitor-counter {
   color: #9aa7b3;
   font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.visitor-counter .counter-link img {
+  height: 22px;
+  display: block;
+}
+
+.counter-credit {
+  font-size: 13px;
+  color: #9aa7b3;
+  text-decoration: none;
+  opacity: 0.8;
 }
 
 /* Header: avatar + name + links */
