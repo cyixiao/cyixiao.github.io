@@ -223,7 +223,7 @@ body::before {
   border: 1px solid #151923;
   border-radius: 14px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  min-height: 260px;
+  height: 400px; /* fixed height */
   max-width: 900px;
   display: grid;
   grid-template-rows: auto 1fr; /* header + content */
@@ -267,14 +267,44 @@ body::before {
   opacity: 1;
   transform: translateY(0px);
   transition: opacity 220ms ease, transform 220ms ease;
-  padding: 16px 18px 20px;
+  padding: 16px 18px 32px; /* increased bottom padding to prevent last line from being cut off */
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Source Code Pro", monospace;
   text-shadow: 0 0 6px rgba(120, 255, 120, 0.12);
+  overflow-y: auto; /* enable scrollbar when content overflows */
+  overflow-x: hidden;
+  height: 100%; /* fill remaining space in grid */
+  box-sizing: border-box; /* ensure padding is included in height calculation */
 }
 
 .content.fade-out {
   opacity: 0;
   transform: translateY(4px);
+}
+
+/* Custom dark scrollbar for content area */
+.content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: #0a0b0e;
+  border-radius: 5px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: #2a2d3a;
+  border-radius: 5px;
+  border: 1px solid #1a1d26;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: #3a3d4a;
+}
+
+/* Firefox scrollbar */
+.content {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2d3a #0a0b0e;
 }
 
 .muted {
