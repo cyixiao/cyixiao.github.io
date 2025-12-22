@@ -50,7 +50,6 @@
 
     <nav class="nav" role="tablist" aria-label="Sections">
       <button class="nav-btn active" data-section="about" role="tab" aria-selected="true">About Me</button>
-      <button class="nav-btn" data-section="education" role="tab" aria-selected="false">Education</button>
       <button class="nav-btn" data-section="publications" role="tab" aria-selected="false">Publications</button>
     </nav>
 
@@ -99,8 +98,14 @@
 
     const sections = {
       about: `I'm Yixiao Chen.\n\nI am currently a Master's student at Harvard University, and hold a B.S. in Computer Science and Statistics from the UNC at Chapel Hill.\n\nMy research interests lie at the intersection of artificial intelligence and scientific discovery, with a particular focus on large language models (LLMs) and AI for Science. I am passionate about exploring how intelligent systems can advance our understanding of complex data and enable new forms of scientific reasoning.\n\nBeyond academics, I enjoy playing piano, exploring mixology, competitive FPS gaming, and following Formula 1 racing.`,
-      education: `Harvard University\n- M.S. in Health Data Science (2025–Present)\n\nUniversity of North Carolina at Chapel Hill\n- B.S. in Computer Science & Statistics (2021–2025)`,
-      publications: `[0] Wenhao Zheng*, Yixiao Chen*, Weitong Zhang, Souvik Kundu, Yun Li, Zhengzhong Liu, Eric P. Xing, Hongyi Wang, Huaxiu Yao, "CITER: Collaborative Inference for Efficient Large Language Model Decoding with Token-Level Routing," Conference on Language Modeling (COLM), 2025.\n\n[1] Yanlong Zhao, Yixiao Chen, Jiawen Du, Quan Sun, Ren Wang, Can Chen, "DREAM-GNN: Dual-route embedding-aware graph neural networks for drug repositioning," Briefings in Bioinformatics, 2025.\n\n[2] Yanlong Zhao*, Yixiao Chen*, Yi Yu, Xiang Liu, Jiawen Du, Jun Wen, Chen Liao, Quan Sun, Ren Wang, Can Chen, "MuSHIN: A multi-way SMILES-based hypergraph inference network for metabolic model reconstruction," Nature Communications, Under Review.\n\n[3] Wenhao Zheng, Weitong Zhang, Yixiao Chen, Zhengzhong Liu, Eric P. Xing, Hongyi Wang, Yun Li, Huaxiu Yao, "CLEAR: A Cost-Aware Routing System for Edge-Cloud Language Model Collaborative Inference," International Conference on Learning Representations (ICLR), 2026, Under Review.\n\n[4] Yiming Liang, Yixiao Chen, Yiyang Zhou, Jiaqi Liu, Zhiyuan Fan, Siwei Han, Jian Wang, Huaxiu Yao, "Latent Video Reasoning," Conference on Computer Vision and Pattern Recognition (CVPR), 2026, Under Review.`
+      publications: [
+        `[0] Wenhao Zheng*, Yixiao Chen*, Weitong Zhang, Souvik Kundu, Yun Li, Zhengzhong Liu, Eric P. Xing, Hongyi Wang, Huaxiu Yao, "CITER: Collaborative Inference for Efficient Large Language Model Decoding with Token-Level Routing," Conference on Language Modeling (COLM), 2025.`,
+        `[1] Yanlong Zhao, Yixiao Chen, Jiawen Du, Quan Sun, Ren Wang, Can Chen, "DREAM-GNN: Dual-route embedding-aware graph neural networks for drug repositioning," Briefings in Bioinformatics, 2025.`,
+        `[2] Yanlong Zhao*, Yixiao Chen*, Yi Yu, Xiang Liu, Jiawen Du, Jun Wen, Chen Liao, Quan Sun, Ren Wang, Can Chen, "MuSHIN: A multi-way SMILES-based hypergraph inference network for metabolic model reconstruction," Nature Communications, Under Review.`,
+        `[3] Wenhao Zheng, Weitong Zhang, Yixiao Chen, Zhengzhong Liu, Eric P. Xing, Hongyi Wang, Yun Li, Huaxiu Yao, "CLEAR: A Cost-Aware Routing System for Edge-Cloud Language Model Collaborative Inference," International Conference on Learning Representations (ICLR), 2026, Under Review.`,
+        `[4] Yiming Liang, Yixiao Chen, Yiyang Zhou, Jiaqi Liu, Zhiyuan Fan, Siwei Han, Jian Wang, Huaxiu Yao, "Latent Video Reasoning," Conference on Computer Vision and Pattern Recognition (CVPR), 2026, Under Review.`,
+        `[5] Yixiao Chen*, Hantao Jiang*, Dengxin Huang*, Chudi Zhong, Can Chen, Yu Yu, Xinyu Zhang, "Integrating the Potential Outcome Framework into Explainable Boosting Machines for Observational Studies: Simulation and Empirical Study," Journal of Medical Internet Research (JMIR), Under Review.`
+      ]
     };
 
     let isTyping = false;
@@ -118,15 +123,15 @@
       return new Promise(resolve => currentTimeout = setTimeout(resolve, ms));
     }
 
-    async function typeText(text) {
+    async function typeText(text, initial = '') {
       isTyping = true;
-      contentEl.textContent = '';
+      contentEl.textContent = initial;
       const cursor = document.createElement('span');
       cursor.className = 'cursor';
       contentEl.appendChild(cursor);
 
       const tokens = Array.from(text);
-      let buffer = '';
+      let buffer = initial;
       for (const ch of tokens) {
         buffer += ch;
         contentEl.firstChild?.remove?.(); // remove cursor before update
@@ -141,6 +146,34 @@
       isTyping = false;
     }
 
+    async function showPublications() {
+      const pubs = sections.publications || [];
+      let accumulated = '';
+      isTyping = true;
+      contentEl.textContent = '';
+
+      for (let i = 0; i < pubs.length; i++) {
+        // 1. 显示「正在生成」提示，像 terminal 在工作
+        const prefix = accumulated ? `${accumulated}\n\n` : '';
+        contentEl.textContent = `${prefix}fetching publication [${i}]...`;
+        // 在一个范围内增加一点随机性
+        const waitMs = 320 + Math.random() * 380; // ≈320–700ms
+        await sleep(waitMs);
+
+        // 2. 删掉 waiting 行，整条 publication 瞬间显示出来
+        accumulated = prefix + pubs[i];
+        contentEl.textContent = accumulated;
+
+        // 3. 两条之间再稍微停顿一下，也带一点随机
+        if (i < pubs.length - 1) {
+          const gapMs = 180 + Math.random() * 240; // ≈180–420ms
+          await sleep(gapMs);
+        }
+      }
+
+      isTyping = false;
+    }
+
     async function showSection(key) {
       if (isTyping) {
         clearTimeout(currentTimeout);
@@ -149,8 +182,12 @@
       contentEl.classList.add('fade-out');
       await sleep(180);
       contentEl.classList.remove('fade-out');
-      const text = sections[key] || '';
-      await typeText(text);
+      if (key === 'publications') {
+        await showPublications();
+      } else {
+        const text = sections[key] || '';
+        await typeText(text);
+      }
     }
 
     // Click handlers
