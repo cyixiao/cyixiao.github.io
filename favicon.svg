@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="cyx prompt logo">
+  <defs>
+    <linearGradient id="g" x1="14" y1="24" x2="50" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4ade80"/>
+      <stop offset=".72" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#f8fbff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="#070a10"/>
+  <rect x="6.5" y="8.5" width="51" height="47" rx="11" fill="#0b111b" stroke="#1d2938"/>
+  <path d="M15 21.5h33" stroke="#1d2938" stroke-width="1.4" stroke-linecap="round"/>
+  <circle cx="16.5" cy="16.5" r="1.25" fill="#ff5f56" opacity=".88"/>
+  <circle cx="21.5" cy="16.5" r="1.25" fill="#ffbd2e" opacity=".88"/>
+  <circle cx="26.5" cy="16.5" r="1.25" fill="#27c93f" opacity=".88"/>
+  <path d="M16.5 29.5 23.5 34l-7 4.5" fill="none" stroke="url(#g)" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="39.2" y="39" fill="#f8fbff" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="15.5" font-weight="700" letter-spacing="0" text-anchor="middle">cyx</text>
+</svg>
